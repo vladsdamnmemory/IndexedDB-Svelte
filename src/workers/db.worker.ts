@@ -196,7 +196,7 @@ class WeatherWorker {
             requestAmount = 0;
             self.postMessage({
               type: 'error',
-              error: error instanceof Error ? error.message : 'Unknown error'
+              error: error.message || 'Unknown error has occurred'
             } as ReadableWorkerMessage);
           }
         });
@@ -312,4 +312,7 @@ class WeatherWorker {
 }
 
 const weatherWorker = new WeatherWorker();
-await weatherWorker.init();
+
+(async () => {
+  await weatherWorker.init();
+})();

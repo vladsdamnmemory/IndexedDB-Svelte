@@ -12,12 +12,13 @@
     }
   }
 
-  const settings: StoreFilters = {};
+  const settings: StoreFilters = {} as StoreFilters;
 
-  const dataForChart: Record<StoreName, ItemData[]> = {};
+  const dataForChart: Record<StoreName, ItemData[]> = {} as Record<StoreName, ItemData[]>;
 
   STORES.forEach(storeName => {
     dataForChart[ storeName ] = [];
+
     settings[ storeName ] = {
       range: { start: 0, end: 0 },
       dates: [],
@@ -74,7 +75,6 @@
             if (range && dates && data) {
               settings[ store ] = {
                 dates,
-                data,
                 range
               };
 
@@ -94,8 +94,9 @@
             break;
 
           case 'error':
-            console.error('Worker error:', e.data.error);
-            errorMessage = e.data.error;
+            const error = e.data.error;
+            errorMessage = error;
+            console.error('Error from the worker:', error);
             break;
 
           default: {
