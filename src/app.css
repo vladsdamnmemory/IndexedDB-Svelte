@@ -1,0 +1,542 @@
+:root {
+    /* Typography */
+    --font-family-base: Inter, Avenir, Helvetica, Arial, sans-serif;
+    --font-family-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-size-base: 16px;
+    --line-height-base: 24px;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 600;
+
+    /* Colors */
+    --primary-color: #2196F3;
+    --primary-dark: #1976D2;
+    --primary-light: #64B5F6;
+    --background-light: #f5f5f5;
+    --background-light-weight: #f5f5f5d9;
+    --background-white: #ffffff;
+    --text-color: #333333;
+    --important-text-color: #ffffff;
+    --text-color-light: #666666;
+    --border-color: #e0e0e0;
+    --border-window-color: #d3d3d3;
+    --error-color: #f44336;
+    --success-color: #4CAF50;
+
+    /* Additional Colors */
+    --text-muted: #666666;
+    --text-muted-lighter: #999999;
+    --text-muted-lightest: #bbbbbb;
+    --border-light: #f3f3f3;
+    --border-dark: #333333;
+    --select-dark-bg: #4c4e4f;
+
+    /* Dark mode colors */
+    --dark-background: #2d2d2d;
+    --dark-background-darker: #1a1a1a;
+    --dark-border: #404040;
+    --dark-border-darker: #333333;
+
+    /* Dark mode additional colors */
+    --dark-text-muted: #a0a0a0;
+    --dark-text-muted-lighter: #777777;
+    --dark-text-muted-lightest: #bbbbbb;
+
+    /* Spacing and Sizes */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --border-radius: 8px;
+    --border-radius-sm: 4px;
+    --border-radius-lg: 12px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 350ms ease;
+
+    /* Container Sizes */
+    --container-max-width: 1200px;
+    --container-padding: var(--spacing-md);
+
+    /* Z-indexes */
+    --z-index-dropdown: 1000;
+    --z-index-modal: 1100;
+    --z-index-tooltip: 1200;
+
+    /* Other Settings */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+    margin: 0;
+    font-family: var(--font-family-system);
+    background-color: var(--background-white);
+    color: var(--text-color);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    margin-bottom: 30px;
+    padding: 0 var(--container-padding);
+}
+
+h1 {
+    font-size: 24px;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Utilities */
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.text-primary {
+    color: var(--primary-color);
+}
+
+.text-error {
+    color: var(--error-color);
+}
+
+.text-success {
+    color: var(--success-color);
+}
+
+.bg-light {
+    background-color: var(--background-light);
+}
+
+.shadow-sm {
+    box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+    box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+    box-shadow: var(--shadow-lg);
+}
+
+.rounded {
+    border-radius: var(--border-radius);
+}
+
+.rounded-sm {
+    border-radius: var(--border-radius-sm);
+}
+
+.rounded-lg {
+    border-radius: var(--border-radius-lg);
+}
+
+/* Base styles for all buttons */
+button {
+    /* Reset default styles */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    margin: 0;
+
+    /* Common styles */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 8px 16px;
+    border-radius: var(--border-radius-sm);
+
+    /* Typography */
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+
+    /* Behavior */
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+
+    /* Default colors */
+    background: var(--background-light) none;
+    color: var(--text-color);
+
+    /* Animation */
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover effect */
+button:hover:not(:disabled) {
+    background-color: var(--border-color);
+}
+
+/* Active state */
+button:active:not(:disabled) {
+    -webkit-transform: translateY(1px);
+    -moz-transform: translateY(1px);
+    transform: translateY(1px);
+}
+
+/* Focus */
+button:focus {
+    outline: none;
+    -webkit-box-shadow: 0 0 0 2px var(--primary-light);
+    -moz-box-shadow: 0 0 0 2px var(--primary-light);
+    box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+/* Disabled state */
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Select styles */
+select {
+    padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-sm) var(--spacing-sm);
+    min-width: 120px;
+    height: 40px;
+    background-color: var(--background-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-sm) center;
+    background-size: 10px auto;
+    cursor: pointer;
+    outline: none;
+    resize: none;
+    -webkit-transition: all var(--transition-normal);
+    -moz-transition: all var(--transition-normal);
+    transition: all var(--transition-normal);
+}
+
+select:hover:not(:disabled) {
+    border-color: var(--primary-color);
+}
+
+select:focus {
+    border-color: var(--primary-color);
+    -webkit-box-shadow: 0 0 0 2px var(--primary-light);
+    -moz-box-shadow: 0 0 0 2px var(--primary-light);
+    box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+select:disabled {
+    background-color: var(--background-light);
+    border-color: var(--border-color);
+    color: var(--text-color-light);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Firefox specific styles */
+@-moz-document url-prefix() {
+    select {
+        text-indent: 0.01px;
+        text-overflow: '';
+        padding-right: 32px;
+    }
+
+    button {
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* IE specific styles */
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+    select {
+        padding-right: 32px;
+    }
+
+    button {
+        -ms-user-select: none;
+    }
+}
+
+/* Safari specific styles */
+@media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+        select {
+            padding-right: 32px;
+        }
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-light: var(--dark-background);
+        --background-white: var(--dark-background-darker);
+        --text-color: #ffffff;
+        --text-color-light: var(--dark-text-muted);
+        --border-color: var(--dark-border);
+        --primary-color: var(--primary-light);
+        --primary-dark: var(--primary-color);
+        --background-light-weight: var(--dark-background);
+        --primary-light: #90caf9;
+        --error-color: #ff6b6b;
+        --success-color: #4ade80;
+        --text-muted: var(--dark-text-muted);
+        --text-muted-lighter: var(--dark-text-muted-lighter);
+        --text-muted-lightest: var(--dark-text-muted-lightest);
+        --border-light: var(--dark-border);
+        --border-dark: var(--dark-border-darker);
+        --select-dark-bg: var(--dark-background);
+    }
+
+    html,
+    body {
+        background-color: var(--dark-background-darker);
+        color: var(--text-color);
+    }
+
+    main {
+        color: var(--text-color);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: var(--text-color);
+    }
+
+    p {
+        color: var(--text-color);
+    }
+
+    /* Select styles in dark mode */
+    select {
+        background-color: #4c4e4f;
+        color: var(--text-color);
+        border-color: var(--dark-border);
+    }
+
+    select option {
+        background-color: var(--dark-background);
+        color: var(--text-color);
+    }
+
+    select:hover:not(:disabled) {
+        border-color: var(--primary-light);
+    }
+
+    select:focus {
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 2px var(--primary-dark);
+    }
+
+    select:disabled {
+        background-color: var(--dark-background-darker);
+        border-color: var(--dark-border-darker);
+        color: var(--text-color-light);
+    }
+
+    /* Button styles in dark mode */
+    button {
+        background-color: var(--dark-background);
+        color: var(--text-color);
+    }
+
+    button:hover:not(:disabled) {
+        background-color: var(--dark-border);
+    }
+
+    button:active:not(:disabled) {
+        background-color: var(--dark-border-darker);
+    }
+
+    button:focus {
+        box-shadow: 0 0 0 2px var(--primary-dark);
+    }
+
+    button:disabled {
+        background-color: var(--dark-background-darker);
+        color: var(--text-color-light);
+    }
+
+    /* Utility classes in dark mode */
+    .bg-light {
+        background-color: var(--dark-background);
+        color: var(--text-color);
+    }
+
+    .text-primary {
+        color: var(--primary-light);
+    }
+
+    .text-error {
+        color: var(--error-color);
+    }
+
+    .text-success {
+        color: var(--success-color);
+    }
+
+    /* Container styles */
+    .container {
+        color: var(--text-color);
+    }
+
+    /* Shadow adjustments for dark mode */
+    .shadow-sm {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .shadow-md {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .shadow-lg {
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Focus styles for better visibility in dark mode */
+    *:focus {
+        outline-color: var(--primary-light);
+    }
+
+    /* Scrollbar styling for dark mode */
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--dark-background);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--dark-border);
+        border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--dark-border-darker);
+    }
+
+    /* Firefox scrollbar */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--dark-border) var(--dark-background);
+    }
+
+    /* Additional text elements */
+    a {
+        color: var(--primary-light);
+    }
+
+    a:hover {
+        color: var(--primary-color);
+    }
+
+    /* Form elements */
+    input,
+    textarea {
+        background-color: var(--dark-background);
+        color: var(--text-color);
+        border-color: var(--dark-border);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: var(--text-color-light);
+    }
+
+    /* Table styles */
+    table {
+        color: var(--text-color);
+    }
+
+    th,
+    td {
+        color: var(--text-color);
+        border-color: var(--dark-border);
+    }
+
+    /* List styles */
+    ul,
+    ol {
+        color: var(--text-color);
+    }
+
+    /* Code blocks */
+    code,
+    pre {
+        background-color: var(--dark-background-darker);
+        color: var(--text-color);
+    }
+}
+
+/* Touch device support */
+@media (hover: none) {
+    button:hover:not(:disabled) {
+        background-color: var(--background-light);
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    button {
+        min-height: 44px;
+        padding: var(--spacing-sm) var(--spacing-lg);
+    }
+}
+
+/* For Safari */
+@media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+        button {
+            -webkit-font-smoothing: antialiased;
+        }
+    }
+}
