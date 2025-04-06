@@ -37,8 +37,6 @@ export class WeatherDB {
       request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
         const db = (event.target as IDBOpenDBRequest).result;
 
-        console.log('db upgrade happened');
-
         STORES.forEach((storeName: StoreName) => {
           if (!db.objectStoreNames.contains(storeName)) {
             db.createObjectStore(storeName, { keyPath: 'date' });
@@ -72,12 +70,6 @@ export class WeatherDB {
         const data = request.result as ItemData[];
         const validData = data.filter((item: ItemData) => !isNaN(item.value));
 
-        console.log(`Got data from database (${ store }):`, {
-          total: data.length,
-          valid: validData.length,
-          sample: validData.at(-1)
-        });
-
         resolve(validData);
       };
 
@@ -95,13 +87,9 @@ export class WeatherDB {
   async saveData(store: StoreName, data: RawDataItem[]): Promise<void> {
     if (!this.db) throw new Error('Database is not initialized');
 
-    console.log(`Saving to database (${ store }), data example:`, data[ 0 ]);
-
     return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(store, 'readwrite');
       const objectStore = transaction.objectStore(store);
-
-      const startTime = performance.now();
 
       // Save each record separately
       data.forEach(item => {
@@ -113,18 +101,7 @@ export class WeatherDB {
         }
       });
 
-      const diff = (performance.now() - startTime) / 1000;
-      console.log(diff, 'seconds to queue save requests');
-
-      transaction.oncomplete = () => {
-        console.log(`Saved to database (${ store })`);
-
-        const diff = (performance.now() - startTime) / 1000;
-        console.log(diff, 'seconds to save');
-
-        resolve();
-      }
-
+      transaction.oncomplete = () => resolve();
       transaction.onerror = () => reject(transaction.error);
     });
   }
@@ -157,7 +134,6 @@ export class WeatherDB {
     if (this.db) {
       this.db.close();
       this.db = null;
-      console.log('Database closed');
     }
   }
 } 

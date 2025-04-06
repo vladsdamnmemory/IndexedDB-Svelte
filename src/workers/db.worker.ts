@@ -101,16 +101,13 @@ class WeatherWorker {
                 // If a database is empty, and it's the first request, then load the corresponding file
                 if (isEmpty) {
                   if (requestId === 1) {
-                    console.log('Need to load the file');
-
                     // Gets data from a file
                     const fileData = await this.fetchServerData(storeName);
 
                     // Saves data to database
                     await this.saveToDatabase(storeName, fileData);
                   } else {
-                    // If it's not the first request and the store is empty due to a stack occupation, return.
-                    console.warn("Data not yet loaded to ", storeName);
+                    // If it's not the first request and the store is empty due to the stack occupation, return
                     return;
                   }
                 }
@@ -119,8 +116,6 @@ class WeatherWorker {
 
                 // If the data is not loaded yet and it's the first request
                 if (!this.loadedStores[ storeName ] && requestId === 1) {
-                  console.log('Going to calculate the range and dates, save them in application');
-
                   // Gets fresh data from a database
                   rawData = await this.getFromDatabase(storeName);
 
@@ -163,25 +158,12 @@ class WeatherWorker {
                   dates: this.loadedStores[ storeName ]?.dates
                 } as ReadableWorkerMessage);
 
-
-                console.log(
-                  '%c🔥Worker response: Data for a chart',
-                  'color: orange; font-size: 20px; font-weight: bold; text-shadow: 2px 2px black;',
-                  {
-                    type: 'data',
-                    store: storeName,
-                    data,
-                    range: e.data.range ?? this.loadedStores[ storeName ]?.range,
-                    dates: this.loadedStores[ storeName ]?.dates
-                  } as ReadableWorkerMessage);
-
                 break;
               }
 
               // Closes the database and worker
               case 'terminate': {
                 this.closeDatabase();
-                console.log('Worker is shutting down...');
                 self.close();
                 break;
               }
@@ -201,8 +183,6 @@ class WeatherWorker {
           }
         });
 
-      console.log('Database initialized');
-
       // Sends a message that the worker is ready (database initialized)
       self.postMessage({
         type: 'ready'
@@ -218,7 +198,6 @@ class WeatherWorker {
    */
   private closeDatabase() {
     this.db.close();
-    console.log('Database closed');
   }
 
   /**

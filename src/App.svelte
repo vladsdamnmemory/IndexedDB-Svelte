@@ -2,8 +2,9 @@
   import { onDestroy, onMount } from 'svelte';
   import type { DateRange, ItemData } from './types';
   import { type StoreName, STORES } from './db';
-  import Chart from './components/Chart.svelte';
   import type { ReadableWorkerMessage, WorkerCommandMessage } from './workers/db.worker';
+  import Chart from './components/Chart.svelte';
+  import Icon from "./components/ui/Icon.svelte";
 
   type StoreFilters = {
     [key in StoreName]: {
@@ -86,9 +87,6 @@
 
               isUpdating = false;
               isInitialLoading = !loadedStores.has(activeTab);
-
-              console.warn('Loaded storage in App: ', store);
-              console.warn(...loadedStores);
             }
 
             break;
@@ -128,13 +126,6 @@
       ? { start, end } as DateRange
       : undefined;
 
-    console.log(
-      'Message to worker: request data within range',
-      start,
-      end,
-      range
-    );
-
     // Sends a message to the worker to fetch data
     worker.postMessage({
       type: 'get',
@@ -167,9 +158,19 @@
         >
           {store.charAt(0).toUpperCase() + store.slice(1)}
 
-          <!-- Update to default range -->
-          {#if activeTab === store && dataForChart[store].length > 0}
-            <div>🔄</div>
+          <!-- Reset range -->
+          {#if
+            activeTab === store
+            && dataForChart[store].length > 0
+            && (
+              settings[store].dates[0] < settings[store].range.start
+              || settings[store].dates.at(-1) > settings[store].range.end
+            )}
+
+            <div class="tab-reset" class:rotating={isUpdating} title="Reset range">
+              <Icon name="refresh"/>
+            </div>
+
           {/if}
 
         </button>
@@ -237,6 +238,23 @@
 </main>
 
 <style>
+  .tab-reset {
+    display: flex;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .rotating {
+    animation: rotate 1s linear infinite;
+  }
+
   .error-message {
     background: linear-gradient(135deg, #ff4e50, var(--error-color));
     color: var(--important-text-color);;

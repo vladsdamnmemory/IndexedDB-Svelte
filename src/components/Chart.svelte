@@ -23,7 +23,6 @@
   // Minimize repaint
   $: if (canvas && data && data.length > 0) {
     if (!arraysEqual(previousData, data)) {
-      console.log('Drawing chart with data points:', data.length);
       previousData = data;
       updateTooltip();
       drawChart();
@@ -33,7 +32,7 @@
   async function updateTooltip() {
     tooltipText = `Calculating...`;
     const value = await getAverage(data);
-    tooltipText = `Average of the period: ${ value }`;
+    tooltipText = `Average for the period: ${ value }`;
   }
 
   function arraysEqual(a, b) {
@@ -56,8 +55,6 @@
     const values = data.map((d) => d.value);
     const minValue = Math.floor(Math.min(...values));
     const maxValue = Math.ceil(Math.max(...values));
-
-    console.log('Chart value range (vertical axis):', { minValue, maxValue });
 
     // Padding
     const padding = 50;
@@ -145,8 +142,6 @@
   }
 
   onMount(() => {
-    console.log('Chart mounted');
-
     const dpr = window.devicePixelRatio || 1;
 
     canvas.width = width * dpr;
@@ -180,8 +175,6 @@
   }
 
   async function getAverage(data: ItemData[], sliceBy = 50): Promise<string> {
-    console.log(`Total items: ${ data.length }`);
-
     let totalSum = 0;
     let processedItems = 0;
 
@@ -192,15 +185,11 @@
       totalSum += portionSum;
       processedItems += portion.length;
 
-      console.log(`Processed ${ processedItems } items`);
-
       // Let the main thread breathe
       await new Promise((resolve) => setTimeout(resolve, 0));
     }
 
     const average = totalSum / processedItems;
-
-    console.log(`Final average: ${ average.toFixed(2) }`);
 
     return average.toFixed(2);
   }
